@@ -2,7 +2,9 @@ import urllib.request
 import os.path
 from os import path
 
-dates = []
+dates = [] #list of all dates in raw format
+dates_clean = [] #list of all dates in day/month/year format
+dates_clean_ints = [] 
 
 if path.isfile('log.txt') == False:
 
@@ -20,12 +22,15 @@ logfile = open('log.txt', 'r')
 
 for row in logfile:
 	splitrow = row.split(' ')
-	dates.append(splitrow[3]) #dates is a list of every date
+	if(len(splitrow[3]) > 14): #cleans up dirty input data
+		dates.append(splitrow[3]) #dates is a list of every date
+for date in dates:
+	dates_clean.append(date[1:12])
 
 
-print(dates)
+
+print(dates_clean)
 
 #total number of rows
 print(f"Total requests in time period of log is {len(dates)} ")
-#log = open('ApacheLog.csv', 'w')
-#print('https://s3.amazonaws.com/tcmg476/http_access_log')
+#ends October 11 1995
