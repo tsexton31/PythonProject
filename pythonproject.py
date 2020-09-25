@@ -15,7 +15,19 @@ Files_list = [] #list of all file names
 code = [] #contains a list of every error code
 redirects = 0 #counts the times 3xx code appears
 notsuccess = 0 #counts the times 4xx comes up
-
+Oct94count = 0
+Nov94count = 0
+Dec94count = 0
+Jancount = 0
+Febcount = 0
+Marcount = 0
+Aprcount = 0
+Maycount = 0
+Juncount = 0
+Julcount = 0
+Augcount = 0
+Sepcount = 0
+Oct95count = 0
 
 
 if path.isfile('log.txt') == False:
@@ -58,33 +70,43 @@ for row in logfile:
 
 	if(splitrow[3][4:7] == "Oct" and splitrow[3][8:12] == '1994'):
 		Oct94.write(row)
-
+		Oct94count += 1
 	if(splitrow[3][4:7] == "Nov" and splitrow[3][8:12] == '1994'):
 		Nov94.write(row)
-
+		Nov94count += 1
 	if(splitrow[3][4:7] == "Dec" and splitrow[3][8:12] == '1994'):
 		Dec94.write(row)
+		Dec94count += 1
 	if(splitrow[3][4:7] == "Jan" and splitrow[3][8:12] == '1995'):
 		Jan.write(row)
+		Jancount += 1
 	if(splitrow[3][4:7] == "Feb" and splitrow[3][8:12] == '1995'):
 		Feb.write(row)
+		Febcount += 1
 	if(splitrow[3][4:7] == "Mar" and splitrow[3][8:12] == '1995'):
 		Mar.write(row)
+		Marcount += 1
 	if(splitrow[3][4:7] == "Apr" and splitrow[3][8:12] == '1995'):
 		Apr.write(row)
+		Aprcount += 1
 	if(splitrow[3][4:7] == "May" and splitrow[3][8:12] == '1995'):
 		May.write(row)
+		Maycount += 1
 	if(splitrow[3][4:7] == "Jun" and splitrow[3][8:12] == '1995'):
 		Jun.write(row)
+		Juncount += 1
 	if(splitrow[3][4:7] == "Jul" and splitrow[3][8:12] == '1995'):
 		Jul.write(row)
+		Julcount += 1
 	if(splitrow[3][4:7] == "Aug" and splitrow[3][8:12] == '1995'):
 		Aug.write(row)
+		Augcount += 1
 	if(splitrow[3][4:7] == "Sep" and splitrow[3][8:12] == '1995'):
 		Sep.write(row)
+		Sepcount += 1
 	if(splitrow[3][4:7] == "Oct" and splitrow[3][8:12] == '1995'):
 		Oct95.write(row)
-
+		Oct95count += 1
 
 for date in dates:
 	dates_clean.append(date[1:12])
@@ -136,6 +158,24 @@ print("Day: Number of Requests")
 for key, value in sorted(DaysOfMonth.items()):
 	print(f"{key} : {value}")
 print()
+print("Requests by Month")
+
+print(f"Oct 94 had {Oct94count} requests.")
+print(f"Nov 94 had {Nov94count} requests.")
+print(f"Dec 94 had {Dec94count} requests.")
+print(f"Jan 95 had {Jancount} requests.")
+print(f"Feb 95 had {Febcount} requests.")
+print(f"Mar 95 had {Marcount} requests.")
+print(f"Apr 95 had {Aprcount} requests.")
+print(f"May 95 had {Maycount} requests.")
+print(f"Jun 95 had {Juncount} requests.")
+print(f"Jul 95 had {Julcount} requests.")
+print(f"Aug 95 had {Augcount} requests.")
+print(f"Sep 95 had {Sepcount} requests.")
+print(f"Oct 95 had {Oct95count} requests.")
+
+
+print()
 print(f"The percent of not successful requests is {(notsuccess/len(dates))*100}%")
 print(f"The percent of redirected requests is {(redirects/len(dates))*100}%")
 print()
@@ -144,6 +184,7 @@ print(f"The most requested file is {max(Files, key=Files.get)}")
 print(f"The least requested file is {min(Files, key=Files.get)}")
 #for key, value in sorted(Files.items()): #prints a dict of all the files and times they appear
 #	print(f"{key} : {value}")
+
 
 print()
 print(f"Total requests in 1995 is {len(entriesIn1995)}")
