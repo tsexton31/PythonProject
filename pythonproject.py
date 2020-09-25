@@ -4,9 +4,12 @@ from os import path
 
 dates = [] #list of all dates in raw format
 dates_clean = [] #list of all dates in day/month/year format
+dates_clean_day = [] #This is a list of every day of the month
 last365days = []
 oct_ints = []
 entriesIn1995 = []
+DaysOfMonth = {}
+
 
 if path.isfile('log.txt') == False:
 
@@ -26,8 +29,18 @@ for row in logfile:
 	splitrow = row.split(' ')
 	if(len(splitrow[3]) > 14): #cleans up dirty input data
 		dates.append(splitrow[3]) #dates is a list of every date
+
+
 for date in dates:
 	dates_clean.append(date[1:12])
+	dates_clean_day.append(date[1:3])
+
+for day in dates_clean_day:
+	if(day in DaysOfMonth):
+		DaysOfMonth[day] += 1
+	else:
+		DaysOfMonth[day] = 1
+print(DaysOfMonth)
 
 for date in dates_clean:
 
@@ -42,6 +55,11 @@ for date in dates_clean:
 for integer in oct_ints:
 	if integer >= 11:
 		integer.append(last365days)
+
+
+
+
+print()
 
 print()
 print(f"Total requests in 1995 is {len(entriesIn1995)}")
