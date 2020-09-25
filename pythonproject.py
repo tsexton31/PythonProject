@@ -9,8 +9,9 @@ last365days = []
 oct_ints = []
 entriesIn1995 = []
 DaysOfMonth = {}
-
-
+code = [] #contains a list of every error code
+redirects = 0 #counts the times 3xx code appears
+notsuccess = 0 #counts the times 4xx comes up
 if path.isfile('log.txt') == False:
 
 	print('Beginning file download with urllib...')
@@ -27,6 +28,8 @@ logfile = open('log.txt', 'r')
 
 for row in logfile:
 	splitrow = row.split(' ')
+	if(len(splitrow) > 8):
+		code.append(splitrow[8])
 	if(len(splitrow[3]) > 14): #cleans up dirty input data
 		dates.append(splitrow[3]) #dates is a list of every date
 
@@ -40,7 +43,7 @@ for day in dates_clean_day:
 		DaysOfMonth[day] += 1
 	else:
 		DaysOfMonth[day] = 1
-print(DaysOfMonth)
+#print(DaysOfMonth)
 
 for date in dates_clean:
 
@@ -58,9 +61,23 @@ for integer in oct_ints:
 
 
 
+#Error code section looking for percent of cudes that are 4xx and 3xx
+for numbers in code:
+#	print(numbers)
+	if(numbers[0] == '3'):
+		redirects = redirects + 1
+	if(numbers[0] == '4'):
+		notsuccess = notsuccess + 1
 
+#outputs
 print()
 
+print("Day: Number of Requests")
+for key, value in sorted(DaysOfMonth.items()):
+	print(f"{key} : {value}")
+print()
+print(f"The percent of not successful requests is {(notsuccess/len(dates))*100}%")
+print(f"The percent of redirected requests is {(redirects/len(dates))*100}%")
 print()
 print(f"Total requests in 1995 is {len(entriesIn1995)}")
 print()
